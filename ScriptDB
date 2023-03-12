@@ -1,0 +1,19 @@
+create database loja;
+use loja;
+CREATE TABLE USUARIO (
+    Id INT PRIMARY KEY,
+    Email Varchar(100),
+    Senha VARCHAR(50),
+    Grupo CHAR(1),
+    Status BIT,
+    Cpf varchar(11)
+);
+CREATE TABLE PRODUTO (
+  Id INT PRIMARY KEY,
+  Nome VARCHAR(255),
+  Preco DECIMAL(10, 2),
+  Descricao TEXT,
+  Data_criacao DATETIME,
+  Data_atualizacao DATETIME,
+  Categoria VARCHAR(100)
+);
