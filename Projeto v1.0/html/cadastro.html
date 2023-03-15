@@ -1,29 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tela de Cadastro</title>
+    <title>Tela de Cadastro</title>
     <link rel="stylesheet" href="../styles/style-cadastro.css" />
 </head>
-  <body>
+<body>
     <div class="cadastro">
-      <h1>Cadastro</h1>
-      <form>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email">
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha">
-        <label for="sexo">Sexo:</label>
-        <select>
-            <option value="masculino">Maculino</option>
-            <option value="feminino">Feminino</option>
-            <option value="outro">Outro</option>
-          </select>
-          <br>
-        <input type="submit" value="Cadastrar">      
-      </form>
-      <script src="../js/script.js"></script>
+        <h1>Cadastro</h1>
+        <form id="formulario">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha">
+            <label for="sexo">Sexo:</label>
+            <select id="sexo" name="sexo">
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+            </select>
+            <br>
+            <input type="submit" value="Cadastrar">      
+        </form>
+        <script>
+            window.onload = function() {
+                //CREATE 
+                const Cadastros = {
+                    user: [
+                        {
+                            id: 1,
+                            username: 'admin',
+                            email: 'ronaldinho2011@hotmail.com',
+                            senha: '123',
+                            sexo: 'masculino'
+                        }
+                    ]
+                }
+                function criaUser(nome,email, senha, sexo){
+                    Cadastros.user.push({  
+                        id: Cadastros.user.length + 1,
+                        username: nome,
+                        email: email, 
+                        senha: senha, 
+                        sexo: sexo
+                    });
+                }
+
+                //READ
+                function listaUsuarios() {
+                return Cadastros.user;
+                }
+                //UPDATE
+                function atualizaUser(id, nome, email, senha, sexo) {
+                const usuario = Cadastros.user.find(u => u.id === id);
+                if (usuario) {
+                    usuario.username = nome;
+                    usuario.email = email;
+                    usuario.senha = senha;
+                    usuario.sexo = sexo;
+                }
+                //DELETE
+                function removeUser(id) {
+                const index = Cadastros.user.findIndex(u => u.id === id);
+                if (index !== -1) {
+                    Cadastros.user.splice(index, 1);
+                }
+}
+
+}
+
+
+                const formulario = document.querySelector('#formulario');
+                formulario.addEventListener('submit', function(event) {
+                    event.preventDefault(); // impede que a página seja recarregada
+                    const nome = document.querySelector('#nome').value;
+                    const email = document.querySelector('#email').value;
+                    const senha = document.querySelector('#senha').value;
+                    const sexo = document.querySelector('#sexo').value;
+                    criaUser(nome, email, senha, sexo);
+                    console.log(Cadastros); // exibe o objeto Cadastros no console
+                });
+            };
+        </script>
     </div>
-  </body>
+</body>
 </html>
