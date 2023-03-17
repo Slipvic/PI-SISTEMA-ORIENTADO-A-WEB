@@ -20,7 +20,7 @@ body {
     display: flex;
     flex-direction: column;
   }
-  input[type="text"], input[type="email"], input[type="password"] {
+  input[type="text"], input[type="email"], input[type="password"], input[type="CPF"], input[type="grupo"]  {
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 5px;
