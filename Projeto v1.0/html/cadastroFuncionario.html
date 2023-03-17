@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Tela de Cadastro</title>
+  <link rel="stylesheet" href="../styles/style-cadastro.css" />
+  <script src="..\js\script.js"></script>
+</head>
+
+<body>
+  <div class="cadastro">
+    <h1>Cadastro Backoffice</h1>
+    <form>
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required title="Digite um endereço de e-mail válido">
+      <label for="CPF">CPF:</label>
+      <input type="CPF" id="CPF" name="CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required
+        title="Digite um CPF válido no formato xxx.xxx.xxx-xx">
+      <!-- Senha com confirmação-->
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required onchange='confereSenha();'>
+      <label for="senha">Confirmar senha:</label>
+      <input type="password" id="senha" name="confirma" required onchange='confereSenha();'>
+      <select>
+        <option value="opcao1">Administrador</option>
+        <option value="opcao2">Estoquista</option>
+      </select>
+      <br>
+      <input type="submit" value="Cadastrar">
+    </form>
+  </div>
+</body>
+
+</html>
