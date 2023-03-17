@@ -56,20 +56,22 @@ return true;
               function listaUsuarios() {
               return Cadastros.user;
               }
-              //UPDATE
-              function atualizaUser(id, nome, email, senha, sexo) {
-              const usuario = Cadastros.user.find(u => u.id === id);
-              if (usuario) {
-                  usuario.username = nome;
-                  usuario.email = email;
-                  usuario.senha = senha;
-                  usuario.sexo = sexo;
+
+                //UPDATE
+                function atualizaUser(id, nome, email, senha, sexo) {
+                  const usuario = Cadastros.user.find(u => u.id === id);
+                  if (usuario) {
+                      usuario.username = nome;
+                      usuario.email = email;
+                      usuario.senha = senha;
+                      usuario.sexo = sexo;
+                  }
+                  //DELETE
+                  function removeUser(id) {
+                      const index = Cadastros.user.findIndex(u => u.id === id);
+                      if (index !== -1) {
+                          Cadastros.user.splice(index, 1);
+                      }
+                  }
+
               }
-            }
-              //DELETE
-              function removeUser(id) {
-              const index = Cadastros.user.findIndex(u => u.id === id);
-              if (index !== -1) {
-                  Cadastros.user.splice(index, 1);
-              }
-            }
