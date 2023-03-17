@@ -6,15 +6,14 @@
   </head>
   <body>
     <header>
-      <h1>Bem-vindo à minha página</h1>
+      <h1>Bem-vindo à galeria</h1>
     </header>
     <nav>
       <ul>
         <li><a href="#">Página Inicial</a></li>
+        <li><a href="#">Contato</a></li>
         <li><a href="login-client.php">Login</a></li>
         <li><a href="#">Sobre</a></li>
-        <li><a href="#">Sobre</a></li>
-        <li><a href="#">Contato</a></li>
       </ul>
     </nav>
     <main>

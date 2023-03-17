@@ -22,11 +22,38 @@
         name="password"
         placeholder="Digite sua senha"
         required
-      />
-      <button type="submit">Entrar</button>
-      <div class="signup">Não tem uma conta? <a href="cadastroCliente.html">Cadastre-se</a></div>
+      />      
+      <button type="submit" onclick="logar()">Entrar</button>
+      <div class="signup">Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></div>
+      <div class="signup">Faz parte do quadro funcionarios? <a href="login-backoffice.html">clique aqui</a></div>
       <br>
       <div class="forgot"><a href="#">Esqueceu a senha?</a></div>
     </form>
+    <script>
+
+    function logar() {
+      const emailInput = document.querySelector('#email');
+      const passwordInput = document.querySelector('#password');
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+    // Verifica se os campos foram preenchidos
+    if (!email || !password) {
+      alert('Por favor, preencha todos os campos.');
+      return false;
+  }
+
+  // Verifica se o e-mail possui um formato válido
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert('Por favor, digite um e-mail válido.');
+    return false;
+  }
+
+  // Se chegou até aqui, os campos estão preenchidos corretamente
+  alert('Validação concluida!');
+  return true;
+}
+    </script>
   </body>
 </html>
