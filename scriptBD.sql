@@ -15,6 +15,26 @@ CREATE TABLE `artgallery`.`funcionarios` (
   `cpf` VARCHAR(14) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idfuncionarios`));
+  
+  ALTER TABLE funcionarios ADD grupo VARCHAR(45);
+  
+CREATE TABLE produto (
+  id_produto INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(200) NOT NULL,
+  avaliacao DECIMAL(2,1) NOT NULL,
+  descricao TEXT NOT NULL,
+  preco DECIMAL(10,2) NOT NULL,
+  qtd_estoque INT NOT NULL
+);
+
+CREATE TABLE imagem (
+  id_imagem INT PRIMARY KEY AUTO_INCREMENT,
+  id_produto INT NOT NULL,
+  caminho VARCHAR(200) NOT NULL,
+  eh_padrao BOOLEAN NOT NULL,
+  FOREIGN KEY (id_produto) REFERENCES produto(id_produto) ON DELETE CASCADE
+);
+
 
 
 SELECT * FROM artgallery.users;
