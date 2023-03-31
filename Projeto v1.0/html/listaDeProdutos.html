@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Produtos</title>
+    <link rel="stylesheet" href="../styles/style-listaDeProdutos.css">
+</head>
+
+<body>
+    <div class="listagem">
+        <h1>Lista de Produtos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Quantidade em Estoque</th>
+                    <th>Imagens</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($produtos as $produto) : ?>
+                <tr>
+                    <td>
+                        <?php echo $produto['id_produto'] ?>
+                    </td>
+                    <td>
+                        <?php echo $produto['nome'] ?>
+                    </td>
+                    <td>
+                        <?php echo $produto['descricao'] ?>
+                    </td>
+                    <td>
+                        <?php echo $produto['preco'] ?>
+                    </td>
+                    <td>
+                        <?php echo $produto['qtd_estoque'] ?>
+                    </td>
+                    <td>
+                        <?php foreach ($produto['imagens'] as $imagem) : ?>
+                        <img src="<?php echo $imagem ?>" alt="Imagem do Produto">
+                        <?php endforeach ?>
+                    </td>
+                    <td>
+                        <form action="" method="POST">
+                            <input type="hidden" name="id_produto" value="<?php echo $produto['id_produto']; ?>">
+                            <button type="submit">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

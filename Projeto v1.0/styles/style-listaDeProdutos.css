@@ -1,94 +1,46 @@
-/* Adicionar uma cor de fundo e definir as margens para centralizar a tela */
-body {
+.listagem {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
     background-color: #f2f2f2;
-    margin: 0 auto;
-    max-width: 800px;
 }
 
-/* Estilizar o título principal */
-h1 {
-    font-size: 2.5rem;
-    text-align: center;
+td:after {
+    content: "/";
 }
 
-/* Adicionar uma borda e espaçamento ao redor das imagens */
-.imagens {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+td:last-child:after {
+    content: none;
 }
 
-.imagens img {
-    margin: 10px;
-    border: 1px solid #ccc;
-    padding: 5px;
+img {
+    max-width: 100px;
+    max-height: 100px;
+    display: block;
+    margin: auto;
+
 }
 
-/* Estilizar a seção de descrição */
-.descricao {
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-}
-
-.descricao h2 {
-    font-size: 1.5rem;
-}
-
-.descricao p {
-    font-size: 1.2rem;
-}
-
-/* Estilizar a seção de descrição detalhada */
-.descricao-detalhada {
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-}
-
-.descricao-detalhada h2 {
-    font-size: 1.5rem;
-}
-
-.descricao-detalhada p {
-    font-size: 1.2rem;
-}
-
-/* Estilizar a seção de preço */
-.preco {
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-}
-
-.preco h2 {
-    font-size: 1.5rem;
-}
-
-.preco p {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: green;
-}
-
-/* Estilizar a seção de compra */
-.comprar {
-    display: flex;
-    justify-content: center;
-}
-
-.comprar button {
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #4CAF50;
+button[type="submit"] {
+    background-color: green;
     color: white;
     border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 16px;
+    padding: 8px;
+    border-radius: 5px;
 }
-
-.comprar button:hover:not([disabled]) {
-    background-color: green;
-}
-
