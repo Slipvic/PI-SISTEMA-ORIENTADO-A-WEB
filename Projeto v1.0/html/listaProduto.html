@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <?php echo $produto['nome'] ?>
+    </title>
+    <link rel="stylesheet" href="../styles/style-listaDeProdutos.css">
+</head>
+
+<body>
+    <div class="detalhe-produto">
+        <h1>
+            <?php echo $produto['nome'] ?>
+        </h1>
+        <div class="imagens">
+            <?php foreach ($imagens as $imagem): ?>
+                <img src="<?php echo $imagem ?>" alt="Imagem do Produto">
+            <?php endforeach ?>
+        </div>  
+        <div class="preco">
+            <h2>Preço:</h2>
+            <p>
+                <?php echo number_format($produto['preco'], 2, ',', '.') ?>
+            </p>
+        </div>
+        <div class="comprar">
+            <button disabled>Comprar</button>
+        </div>
+        <div class="descricao">
+            <h2>Descrição:</h2>
+            <p>
+                <?php echo $produto['descricao'] ?>
+            </p>
+        </div>
+        <div class="descricao-detalhada">
+            <h2>Descrição Detalhada:</h2>
+            <p>
+                <?php echo $produto['descricao'] ?>
+            </p>
+        </div>
+
+    </div>
+    <script src="js/carousel.js"></script>
+</body>
+
+</html>
