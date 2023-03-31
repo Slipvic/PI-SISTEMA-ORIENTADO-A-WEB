@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produto</title>
+    <link rel="stylesheet" href="../styles/style-produto.css">
+</head>
+
+<body>
+    <div class="cadastro">
+        <h1>Cadastro de Produto</h1>
+        <form id="formulario" action="" method="POST" enctype="multipart/form-data">
+
+            <label for="nome_produto">Nome do Produto:</label>
+            <input type="text" name="nome_produto" id="nome_produto" required>
+            <label for="descricao">Descrição:</label>
+            <textarea name="descricao" id="descricao" required></textarea>
+            <label for="preco">Preço:</label>
+            <input type="number" name="preco" id="preco" step="0.01" required>
+            <label for="qtd_estoque">Quantidade em Estoque:</label>
+            <input type="number" name="qtd_estoque" id="qtd_estoque" required>
+            <label for="imagens">Imagens:</label>
+            <input type="file" name="imagens[]" id="imagens" multiple required>
+            <label for="imagem_principal">Imagem Principal:</label>
+            <select name="imagem_principal" id="imagem_principal">
+                <?php foreach ($imagens as $key => $imagem) { ?>
+                <option value="<?php echo $key + 1; ?>">
+                    <?php echo $imagem['caminho']; ?>
+                </option>
+                <?php } ?>
+            </select>
+            <button type="submit">Cadastrar Produto</button>
+        </form>
+    </div>
+</body>
+
+</html>
