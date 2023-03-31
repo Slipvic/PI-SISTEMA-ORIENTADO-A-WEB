@@ -2,7 +2,17 @@
 body {
 	font-family: Arial, sans-serif;
 	font-size: 16px;
+	background-color: #f2f2f2;
 }
+/*Muda estilo do titulo da pagina*/
+title {
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+  }
+  
 
 /* Define o estilo do cabeçalho */
 header {
