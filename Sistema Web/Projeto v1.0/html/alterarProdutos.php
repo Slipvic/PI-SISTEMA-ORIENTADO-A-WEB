@@ -1,9 +1,15 @@
 <?php
 include('../controller/config.php');
 
+// Recupera o ID da URL
+$id = $conexao->real_escape_string($_GET['id']);
+
+// Faz a consulta ao banco de dados
+$resultado = mysqli_query($conexao, "SELECT * FROM produto WHERE id_produto='$id'");
+$produto = mysqli_fetch_assoc($resultado);
+
 if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
 
-  $id = $conexao->real_escape_string($_GET['id']); // Recupera o ID da URL
   $nome = $conexao->real_escape_string($_POST['nome']);
   $avaliacao = $conexao->real_escape_string($_POST['avaliacao']);
   $descricao = $conexao->real_escape_string($_POST['descricao']);
@@ -30,19 +36,15 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
     <h1>Editar Produto</h1>
     <form id="formulario" action="" method="POST">
       <label for="nome">Nome da Obra:</label>
-      <input type="text" id="nome" name="nome" required pattern="[A-Za-z\s]+"
-        title="O campo Nome deve conter apenas letras e espaços. Este campo é obrigatório." />
+      <input type="text" id="nome" name="nome"  title="O campo Nome deve conter apenas letras e espaços. Este campo é obrigatório." value="<?php echo $produto['nome'] ?>" />
       <label for="avaliacao">Avaliação da Obra:</label>
-      <input type="text" id="avaliacao" placeholder="4.5" name="avaliacao" required
-        title="Por favor, informe um numero de avaliação" />
+      <input type="text" id="avaliacao" placeholder="4.5" name="avaliacao" required title="Por favor, informe um numero de avaliação" value="<?php echo $produto['avaliacao'] ?>" />
       <label for="descricao">Descrição:</label>
-      <input type="text" name="descricao" id="descricao" maxlength="80" required
-        title="Informe uma descrição nova do produto:" />
+      <input type="text" name="descricao" id="descricao" maxlength="80" required title="Informe uma descrição nova do produto:" value="<?php echo $produto['descricao'] ?>" />
       <label for="qtd">Quantidade em estoque:</label>
-      <input type="text" name="qtd" id="qtd" placeholder="12" maxlength="15" required title="Informe a quantidade:" />
+      <input type="text" name="qtd" id="qtd" placeholder="12" maxlength="15" required title="Informe a quantidade:" value="<?php echo $produto['qtd_estoque'] ?>" />
       <label for="preco">Preço Unitário:</label>
-      <input type="text" name="preco" id="preco" placeholder="3.325,00" maxlength="15" required
-        title="Informe o preço do produto:" />
+      <input type="text" name="preco" id="preco" placeholder="3.325,00" maxlength="15" required title="Informe o preço do produto:" value="<?php echo $produto['preco'] ?>" />
       <br>
       <input type="submit" name="submit" value="Editar">
     </form>
