@@ -24,7 +24,9 @@ CREATE TABLE produto (
   avaliacao DECIMAL(2,1) NOT NULL,
   descricao TEXT NOT NULL,
   preco DECIMAL(10,2) NOT NULL,
-  qtd_estoque INT NOT NULL
+  qtd_estoque INT NOT NULL,
+  ativo BIT NOT NULL DEFAULT 1
+  
 );
 
 CREATE TABLE imagem (
