@@ -1,10 +1,9 @@
 <?php
-// Conexão com o banco de dados
-$conexao = new mysqli('localhost', 'root', '', 'artgallery');
+include('../controller/config.php');
 
 // Verifica se a conexão foi bem sucedida
-if ($conexao->connect_error) {
-  die('Erro de conexão: ' . $conexao->connect_error);
+if ($conexao->connect_errno) {
+  die('Erro de conexão: ' . $conexao->connect_errno);
 }
 
 // Recupera as imagens já cadastradas
@@ -34,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Insere as imagens na tabela imagem
   for ($i = 0; $i < count($imagens['name']); $i++) {
-    $caminho_imagem = '../images/' . uniqid() . '-' . $imagens['name'][$i];
+    $caminho_imagem = '../img/' . uniqid() . '-' . $imagens['name'][$i];
     move_uploaded_file($imagens['tmp_name'][$i], $caminho_imagem);
     $eh_padrao = ($imagem_principal == $i + 1) ? 1 : 0;
     $sql_imagem = "INSERT INTO imagem (id_produto, caminho, eh_padrao) VALUES ('$id_produto', '$caminho_imagem', '$eh_padrao')";
@@ -42,43 +41,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   // Redireciona para a página de listagem de produtos
-  header('Location: listaProdutos.php');
+  header('Location: listarProdutos.php');
   exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <title>Cadastro de Produto</title>
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Inclui o arquivo CSS do Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
 </head>
-
 <body>
-  <div class="cadastro">
+  <div class="container">
     <h1>Cadastro de Produto</h1>
     <form id="formulario" action="" method="POST" enctype="multipart/form-data">
       
-      <label for="nome_produto">Nome do Produto:</label>
-  <input type="text" name="nome_produto" id="nome_produto" required>
-  <label for="descricao">Descrição:</label>
-  <textarea name="descricao" id="descricao" required></textarea>
-  <label for="preco">Preço:</label>
-  <input type="number" name="preco" id="preco" step="0.01" required>
-  <label for="qtd_estoque">Quantidade em Estoque:</label>
-  <input type="number" name="qtd_estoque" id="qtd_estoque" required>
-  <label for="imagens">Imagens:</label>
-  <input type="file" name="imagens[]" id="imagens" multiple required>
-  <label for="imagem_principal">Imagem Principal:</label>
-  <select name="imagem_principal" id="imagem_principal">
-    <?php foreach ($imagens as $key => $imagem) { ?>
-      <option value="<?php echo $key + 1; ?>"><?php echo $imagem['caminho']; ?></option>
-    <?php } ?>
-  </select>
-  <button type="submit">Cadastrar Produto</button>
-</form>
-</div>
+      <div class="mb-3">
+        <label for="nome_produto" class="form-label">Nome do Produto:</label>
+        <input type="text" class="form-control" name="nome_produto" id="nome_produto" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição:</label>
+        <textarea class="form-control" name="descricao" id="descricao" required></textarea>
+      </div>
+      
+      <div class="mb-3">
+        <label for="preco" class="form-label">Preço:</label>
+        <input type="number" class="form-control" name="preco" id="preco" step="0.01" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="qtd_estoque" class="form-label">Quantidade em Estoque:</label>
+        <input type="number" class="form-control" name="qtd_estoque" id="qtd_estoque" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="imagens" class="form-label">Imagens:</label>
+        <input type="file" class="form-control" name="imagens[]" id="imagens" multiple required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="imagem_principal" class="form-label">Imagem Principal:</label>
+        <select class="form-select" name="imagem_principal" id="imagem_principal">
+          <?php foreach ($imagens as $key => $imagem) { ?>
+            <option value="<?php echo $key + 1; ?>"><?php echo $imagem['caminho']; ?></option>
+          <?php } ?>
+        </select>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Cadastrar Produto</button>
+      
+    </form>
+  </div>
+  
+  <!-- Inclui o arquivo JavaScript do Bootstrap (opcional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

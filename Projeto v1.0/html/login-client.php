@@ -28,7 +28,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['idusers'] = $usuario['idusers'];
             $_SESSION['nome'] = $usuario['nome'];
 
-            header("Location: painel.php");
+            header("Location: indexClientes.php");
 
         } else {
             echo "Falha ao logar! E-mail ou senha incorretos";
@@ -43,7 +43,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
 <html>
 <head>
   <title>Tela de Login</title>
-  <link rel="stylesheet" href="../styles/style-login.css" />
+  <link rel="stylesheet" href="../styles/style-loginCliente.css" />
 </head>
 <body>
   <form action="" method="POST">
@@ -54,7 +54,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
     <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required />
 
     <button type="submit" onclick="logar()">Entrar</button>
-    <div class="signup">Não tem uma conta? <a href="cadastro.php">Cadastre-se</a></div>
+    <div class="signup">Não tem uma conta? <a href="cadastroUser.php">Cadastre-se</a></div>
     <div class="signup">Faz parte do quadro funcionarios? <a href="login-backoffice.php">clique aqui</a></div>
     <br>
     <div class="forgot"><a href="#">Esqueceu a senha?</a></div>

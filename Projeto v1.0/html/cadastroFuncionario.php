@@ -6,11 +6,13 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
     $nome = $conexao->real_escape_string($_POST['nome']);
     $email = $conexao->real_escape_string($_POST['email']);
     $CPF = $conexao->real_escape_string($_POST['CPF']);
-    $senha = $conexao->real_escape_string($_POST['senha']);
+    $senha = md5($conexao->real_escape_string($_POST['senha']));
     $grupo =$conexao->real_escape_string($_POST['grupo']);  
 
     $result = mysqli_query($conexao, "INSERT INTO funcionarios(nome,email,cpf,senha, grupo) 
     VALUES ('$nome','$email','$CPF','$senha', '$grupo')");
+
+header("Location: listarUsuarios.php");
 }
 ?>
 

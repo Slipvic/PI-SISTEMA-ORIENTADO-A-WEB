@@ -10,7 +10,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
     } else {
 
       $email = $conexao->real_escape_string($_POST['email']);
-      $senha = $conexao->real_escape_string($_POST['senha']);
+      $senha =  md5($conexao->real_escape_string($_POST['senha']));
 
         $sql_code = "SELECT * FROM funcionarios WHERE email = '$email' AND senha = '$senha'";
         $sql_query = $conexao->query($sql_code) or die("Falha na execução do código SQL: ");
@@ -28,7 +28,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['idfuncionarios'] = $usuario['idfuncionarios'];
             $_SESSION['nome'] = $usuario['nome'];
 
-            header("Location: listarUsuarios.php");
+            header("Location: paginaInicial.php");
 
         } else {
             echo "Falha ao logar! E-mail ou senha incorretos";
