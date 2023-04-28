@@ -40,15 +40,11 @@ if (!isset($_SESSION)) {
           <a class="nav-link" href="#">Quadros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo isset($_SESSION['idusers']) ? 'perfil-cliente.php' : 'login-client.php'; ?>">
+          <a class="nav-link" href="<?php echo isset($_SESSION['idusers']) ? 'perfilCliente.php' : 'login-client.php'; ?>">
             <?php echo isset($_SESSION['idusers']) ? 'Perfil' : 'Login'; ?>
           </a>
         </li>
-        <?php if (isset($_SESSION['idusers'])): ?>
-          <li class="nav-item">
-            <a class="nav-link" href="indexClientes.php">Logout <?php session_destroy()?></a>
-          </li>
-        <?php endif; ?>
+   
       </ul>
     </div>
   </nav>
