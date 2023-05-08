@@ -6,4 +6,4 @@ COMANDOS USADOS:
 para rodar o projeto cole-o na pasta htdocs do xampp e rodeo através do comando inserido abaixo:
 
 Acesso do projeto no navegador
-## http://localhost/Projeto%20v1.0/html/
+## http://localhost/Sistema Web/
