@@ -118,7 +118,14 @@ if (!isset($_SESSION)) {
           <div class="card-body">
             <h5 class="card-title">QUADRO AMELIE</h5>
             <p class="card-text">R$ 99,99</p>
-            <a href="#" class="btn btn-primary">Comprar</a>
+            <form method="POST" action="adicionar_carrinho.php">
+              <input type="hidden" name="id_produto" value="1">
+              <input type="hidden" name="nome" value="QUADRO AMELIE">
+              <input type="hidden" name="preco" value="99.99">
+              <input type="number" name="quantidade" value="1" min="1">
+              <button type="submit">Adicionar ao carrinho</button>
+            </form>
+            <a href="adicionar_carrinho.php?id_produto=1&quantidade=1" class="btn btn-primary">Comprar</a>
           </div>
         </div>
       </div>
@@ -128,7 +135,14 @@ if (!isset($_SESSION)) {
           <div class="card-body">
             <h5 class="card-title">QUADRO MONALISA</h5>
             <p class="card-text">R$ 129,99</p>
-            <a href="#" class="btn btn-primary">Comprar</a>
+            <form method="POST" action="adicionar_carrinho.php">
+              <input type="hidden" name="id_produto" value="2">
+              <input type="hidden" name="nome" value="QUADRO MONALISA">
+              <input type="hidden" name="preco" value="129.99">
+              <input type="number" name="quantidade" value="1" min="1">
+              <button type="submit">Adicionar ao carrinho</button>
+            </form>
+            <a href="adicionar_carrinho.php?id_produto=2&quantidade=1" class="btn btn-primary">Comprar</a>
           </div>
         </div>
       </div>
@@ -138,7 +152,14 @@ if (!isset($_SESSION)) {
           <div class="card-body">
             <h5 class="card-title">QUADRO THE HANDMAIDS</h5>
             <p class="card-text">R$ 129,99</p>
-            <a href="#" class="btn btn-primary">Comprar</a>
+            <form method="POST" action="adicionar_carrinho.php">
+              <input type="hidden" name="id_produto" value="3">
+              <input type="hidden" name="nome" value="QUADRO THE HANDMAIDS">
+              <input type="hidden" name="preco" value="129.99">
+              <input type="number" name="quantidade" value="1" min="1">
+              <button type="submit">Adicionar ao carrinho</button>
+            </form>
+            <a href="adicionar_carrinho.php?id_produto=3&quantidade=1" class="btn btn-primary">Comprar</a>
           </div>
         </div>
       </div>
