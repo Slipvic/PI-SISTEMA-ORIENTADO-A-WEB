@@ -97,7 +97,9 @@ $imagens = mysqli_fetch_all($resultado_imagens, MYSQLI_ASSOC);
             <p class="card-text">Preço: R$
               <?php echo number_format($produto['preco'], 2, ',', '.') ?>
             </p>
-            <a href="carrinho.php" class="btn btn-primary btn-comprar" data-id="<?php echo $id_produto; ?>">Comprar</a>
+            <a href="adicionar_carrinho.php?id_produto=<?php echo $id_produto; 
+              ?>&nome=<?php echo $produto['nome']; ?>&preco=<?php echo $produto['preco']; 
+              ?>" class="btn btn-primary">Adicionar ao Carrinho</a>
             <br>
           </div>
         </div>

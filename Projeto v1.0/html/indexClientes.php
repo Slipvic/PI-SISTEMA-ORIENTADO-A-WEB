@@ -134,10 +134,11 @@ $result = $conexao->query($sql);
               <p class="card-text">Preço: R$
                 <?php echo number_format($produto['preco'], 2, ',', '.') ?>
               </p>
+              <a href="detalheProduto.php?id_produto=<?php echo $produto['id_produto']; ?>" class="btn btn-primary">Comprar</a>
+
               <a href="adicionar_carrinho.php?id_produto=<?php echo $produto['id_produto']; 
               ?>&nome=<?php echo $produto['nome']; ?>&preco=<?php echo $produto['preco']; 
-              ?>" class="btn btn-primary">Comprar</a>
-
+              ?>" class="btn btn-primary">Adicionar ao Carrinho</a>
             </div>
           </div>
         </div>

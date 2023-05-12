@@ -58,7 +58,7 @@ $result = $conexao->query($sql);
                             <td><?php echo "R$" . $row["preco"]; ?></td>
                             <td><?php echo $row["qtd_estoque"]; ?></td>
                             <td><?php echo $status; ?></td>
-                            <td><button class="edit"><a href="detalheProduto.php?id=<?php echo $row["id_produto"]; ?>">ver mais..</a></button></td>
+                            <td><button class="edit"><a href="detalheProduto.php?id_produto=<?php echo $row["id_produto"]; ?>">ver mais..</a></button></td>
                             <td>
                                 <button class="edit"><a href="alterarProdutos.php?id=<?php echo $row["id_produto"]; ?>">Alterar</a></button>
                                 <?php if ($row['ativo'] == 1) { ?>
