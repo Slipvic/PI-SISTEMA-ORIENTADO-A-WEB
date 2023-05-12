@@ -2,11 +2,15 @@
 include('../controller/config.php');
 // Iniciar a sessão
 if (!isset($_SESSION)) {
-    session_start();
+  session_start();
 }
 
 // Executa a consulta SQL dos produtos
-$sql = "SELECT p.id_produto, p.nome, p.avaliacao, p.preco, MAX(i.caminho) AS caminho FROM produto p LEFT JOIN imagem i ON p.id_produto = i.id_produto GROUP BY p.id_produto";
+$sql = "SELECT p.id_produto, p.nome, p.avaliacao, p.preco, MAX(i.caminho) AS caminho
+FROM produto p
+LEFT JOIN imagem i ON p.id_produto = i.id_produto
+WHERE i.eh_padrao = 0
+GROUP BY p.id_produto";
 $result = $conexao->query($sql);
 
 
@@ -26,10 +30,8 @@ $result = $conexao->query($sql);
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#"> <?php if(isset($_SESSION['nome'])){
-    echo '<a class="navbar-brand" href="#"> Olá, ' . explode(" ", $_SESSION['nome'])[0] . '</a>';
-}
-?></a>
+    <a class="navbar-brand" href="#">Ecommerce de Artes</a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -37,20 +39,21 @@ $result = $conexao->query($sql);
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Baixe o App</a>
+          <a class="nav-link" href="carrinho.php">Carrinho</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Menu</a>
+          <a class="nav-link" href="#">Meus Pedidos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Quadros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo isset($_SESSION['idusers']) ? 'perfilCliente.php' : 'login-client.php'; ?>">
+          <a class="nav-link"
+            href="<?php echo isset($_SESSION['idusers']) ? 'perfilCliente.php' : 'login-client.php'; ?>">
             <?php echo isset($_SESSION['idusers']) ? 'Perfil' : 'Login'; ?>
           </a>
         </li>
-   
+
       </ul>
     </div>
   </nav>
@@ -84,7 +87,6 @@ $result = $conexao->query($sql);
   </div>
 
   <!-- Conteúdo principal -->
-  <!-- Conteúdo principal -->
   <main class="container my-5">
     <h1 class="text-center mb-5">Bem-vindo à nossa loja de artes!</h1>
 
@@ -116,23 +118,42 @@ $result = $conexao->query($sql);
       </a>
     </div>
 
-   <!-- Grid de produtos -->
-<div class="row">
-  <?php while ($produto = $result->fetch_assoc()): ?>
-    <div class="col-md-4 mb-3">
-      <div class="card">
-        <img class="card-img-top" src="<?php echo $produto['caminho'] ?>" alt="<?php echo $produto['nome'] ?>">
-        <div class="card-body">
-          <h5 class="card-title"><?php echo $produto['nome'] ?></h5>
-          <p class="card-text">Avaliação: <?php echo $produto['avaliacao'] ?></p>
-          <p class="card-text">Preço: R$ <?php echo number_format($produto['preco'], 2, ',', '.') ?></p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+    <!-- Grid de produtos -->
+    <div class="row">
+      <?php while ($produto = $result->fetch_assoc()): ?>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img class="card-img-top" src="<?php echo $produto['caminho'] ?>" alt="<?php echo $produto['nome'] ?>">
+            <div class="card-body">
+              <h5 class="card-title">
+                <?php echo $produto['nome'] ?>
+              </h5>
+              <p class="card-text">Avaliação:
+                <?php echo $produto['avaliacao'] ?>
+              </p>
+              <p class="card-text">Preço: R$
+                <?php echo number_format($produto['preco'], 2, ',', '.') ?>
+              </p>
+              <a href="adicionar_carrinho.php?id_produto=<?php echo $produto['id_produto']; 
+              ?>&nome=<?php echo $produto['nome']; ?>&preco=<?php echo $produto['preco']; 
+              ?>" class="btn btn-primary">Comprar</a>
+
+            </div>
+          </div>
         </div>
-      </div>
+      <?php endwhile; ?>
     </div>
-  <?php endwhile; ?>
-</div>
   </main>
 </body>
+
+
+ <!-- <form method="POST" action="adicionar_carrinho.php">
+  <input type="hidden" name="id_produto" value="1">
+  <input type="hidden" name="nome" value="QUADRO AMELIE">
+  <input type="hidden" name="preco" value="99.99">
+  <input type="number" name="quantidade" value="1" min="1">
+  <button type="submit">Adicionar ao carrinho</button>
+</form>
+<a href="adicionar_carrinho.php?id_produto=1&quantidade=1" class="btn btn-primary">Comprar</a> -->
 
 </html>

@@ -1,14 +1,17 @@
 create database artgallery;
 use artgallery;
-CREATE TABLE `users` (
-  `idusers` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(110) NOT NULL,
-   `cpf` varchar(14) NOT NULL, 
-  `email` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
-  `sexo` varchar(45) NOT NULL,
-  PRIMARY KEY (`idusers`)
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  cpf VARCHAR(14) NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  sexo VARCHAR(10) NOT NULL,
+  data_nascimento DATE NOT NULL
 );
+
+
+
 
 
 CREATE TABLE endereco (
@@ -57,8 +60,8 @@ CREATE TABLE imagem (
 );
 
 
-SELECT * FROM artgallery.produto;
+SELECT * FROM artgallery.users;
 SELECT * FROM artgallery.imagem;
 SELECT * FROM artgallery.endereco;
-SELECT p.nome, p.avaliacao, p.preco  FROM produto p LEFT JOIN imagem i ON p.id_produto;
 /*drop database loja;
+/*ALTER TABLE users ADD COLUMN data_nascimento DATE NOT NULL DEFAULT '1970-01-01' AFTER sexo;

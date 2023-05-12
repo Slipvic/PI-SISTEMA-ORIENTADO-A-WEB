@@ -4,7 +4,7 @@ include('../controller/config.php');
 // Recupera o ID da URL
 $id = $conexao->real_escape_string($_GET['id']);
 
-// Faz a consulta ao banco de dados
+// Faz a consulta a tabela de produtos
 $resultado = mysqli_query($conexao, "SELECT * FROM produto WHERE id_produto='$id'");
 $produto = mysqli_fetch_assoc($resultado);
 
@@ -15,20 +15,27 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
   $descricao = $conexao->real_escape_string($_POST['descricao']);
   $preco = $conexao->real_escape_string($_POST['preco']);
   $qtd = $conexao->real_escape_string($_POST['qtd']);
+  $imagens = $_FILES['imagens'];
+  $imagem_principal = $_FILES['imagemPrincipal'];
 
-  // Atualiza as informações do produto
+  // Altera as informações do produto
   $result = mysqli_query($conexao, "UPDATE produto SET nome='$nome', avaliacao='$avaliacao', descricao='$descricao', preco='$preco', qtd_estoque='$qtd' WHERE id_produto='$id'");
 
-  // Atualiza as informações das imagens
-  $imagens = $_FILES['imagens'];
-  if (!empty($imagens['name'][0])) { // verifica se foi enviado pelo menos um arquivo
-    foreach ($imagens['name'] as $key => $name) {
-      $caminho = "../img/" . basename($name);
-      if (move_uploaded_file($imagens['tmp_name'][$key], $caminho)) {
-        $result = mysqli_query($conexao, "UPDATE imagem SET caminho='$caminho' WHERE id_produto='$id'");
-      }
-    }
+  // Altera a imagem principal na tabela imagem
+  $caminho_imagem = '../img/' . uniqid() . '-' . $imagem_principal['name'];
+  move_uploaded_file($imagem_principal['tmp_name'], $caminho_imagem);
+  $sql_imagem = "UPDATE imagem SET caminho='$caminho_imagem' WHERE id_produto = '$id' AND eh_padrao='1'";
+  $conexao->query($sql_imagem);
+
+  // Altera e adiciona mais imagens na tabela imagem
+  for ($i = 0; $i < count($imagens['name']); $i++) {
+    $caminho_imagem = '../img/' . uniqid() . '-' . $imagens['name'][$i];
+    move_uploaded_file($imagens['tmp_name'][$i], $caminho_imagem);
+    $sql_imagem = "UPDATE imagem SET caminho='$caminho_imagem' WHERE id_produto = '$id' AND eh_padrao='1'";
+    $conexao->query($sql_imagem);
   }
+
+  
 
   header("Location: listarProdutos.php");
 }
@@ -37,8 +44,8 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
 <html>
 
 <head>
-  <title>Editar Cadastro</title>
-  <link rel="stylesheet" href="../styles/style-cadastroCliente.css" />
+  <title>Editar Produto</title>
+  <link rel="stylesheet" href="../styles/style-alterarProdutos.css" />
   <script src="..\js\script.js"></script>
 </head>
 
@@ -64,8 +71,11 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
         title="Informe o preço do produto:" value="<?php echo $produto['preco'] ?>" />
 
       <!-- campo de upload de imagens -->
-      <label for="imagem">Imagens:</label>
-      <input type="file" name="imagem[]" id="imagem" multiple />
+      <label for="imagens" class="form-label">Imagem Principal:</label>
+      <input type="file" class="form-control" name="imagemPrincipal" id="imagens" multiple required>
+
+      <label for="imagens" class="form-label">Outras Imagens:</label>
+      <input type="file" class="form-control" name="imagens[]" id="imagens" multiple required>
 
       <button type="submit" name="submit"> Editar</button>
     </form>

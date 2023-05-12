@@ -8,11 +8,15 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
     $email = $conexao->real_escape_string($_POST['email']);
     $senha = $conexao->real_escape_string($_POST['senha']);
     $sexo = $conexao->real_escape_string($_POST['sexo']);
+    $data_nascimento = $conexao->real_escape_string($_POST['data_nascimento']);
 
-    $result = mysqli_query($conexao, "INSERT INTO users(nome,email,cpf,senha,sexo) 
-    VALUES ('$nome','$email','$cpf','$senha','$sexo')");
+    $result = mysqli_query($conexao, "INSERT INTO users(nome,email,cpf,senha,sexo,data_nascimento) 
+    VALUES ('$nome','$email','$cpf','$senha','$sexo','$data_nascimento')");
 
+
+header("Location: login-client.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,6 +39,9 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
             <label for="email">E-mail:</label>
             <input type="email" id="email" name="email" required
                 title="Por favor, insira um endereço de e-mail válido." />
+            <label for="data_nascimento">Data de nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" required>
+
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required minlength="6"
                 title="A senha deve ter no mínimo 6 caracteres. Este campo é obrigatório." />

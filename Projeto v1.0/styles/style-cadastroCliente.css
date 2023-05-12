@@ -34,3 +34,11 @@ body {
     border: none;
     cursor: pointer;
   }
+  button [type="submit"] {
+    background-color: #3e8e41;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
