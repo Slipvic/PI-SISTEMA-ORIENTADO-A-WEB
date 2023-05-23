@@ -36,6 +36,7 @@ CREATE TABLE `artgallery`.`funcionarios` (
   `cpf` VARCHAR(14) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   `grupo` VARCHAR(45) NOT NULL,
+  `ativo` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`idfuncionarios`));
 
   
@@ -47,7 +48,6 @@ CREATE TABLE produto (
   preco DECIMAL(10,2) NOT NULL,
   qtd_estoque INT NOT NULL,
   ativo BIT NOT NULL DEFAULT 1
-  
 );
 
 
@@ -59,9 +59,10 @@ CREATE TABLE imagem (
   FOREIGN KEY (id_produto) REFERENCES produto(id_produto) ON DELETE CASCADE
 );
 
-
+SELECT * FROM artgallery.funcionarios;
 SELECT * FROM artgallery.users;
 SELECT * FROM artgallery.imagem;
 SELECT * FROM artgallery.endereco;
+SELECT * FROM artgallery.produto;
 /*drop database loja;
 /*ALTER TABLE users ADD COLUMN data_nascimento DATE NOT NULL DEFAULT '1970-01-01' AFTER sexo;
