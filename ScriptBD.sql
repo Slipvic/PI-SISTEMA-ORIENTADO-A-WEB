@@ -60,23 +60,24 @@ CREATE TABLE imagem (
 );
 
 CREATE TABLE PEDIDO (
-    id INT PRIMARY KEY,
-    data DATE,
-    cliente_id INT,
-    frete FLOAT,
-    total FLOAT,
-    endereco_id INT,
-    forma_pgto VARCHAR(255),
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    data DATE NOT NULL,
+    cliente_id INT NOT NULL,
+    frete  DECIMAL(10,2) NOT NULL,
+    total  DECIMAL(10,2) NOT NULL,
+    endereco_id INT NOT NULL,
+    forma_pgto VARCHAR(255) NOT NULL,
     status VARCHAR(255),
     FOREIGN KEY (cliente_id) REFERENCES CLIENTE(id),
     FOREIGN KEY (endereco_id) REFERENCES ENDERECO(id)
 );
 
 CREATE TABLE ITENS_PEDIDO (
-    produto VARCHAR(255),
-    valor FLOAT,
-    quantidade INT,
-    pedido_id INT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    produto VARCHAR(255) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    quantidade INT NOT NULL,
+    pedido_id INT NOT NULL,
     FOREIGN KEY (pedido_id) REFERENCES PEDIDO(id)
 );
 
