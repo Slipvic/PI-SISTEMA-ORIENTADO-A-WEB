@@ -1,7 +1,7 @@
 create database artgallery;
 use artgallery;
 CREATE TABLE users (
-  id INT PRIMARY KEY AUTO_INCREMENT,
+  idusers INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   cpf VARCHAR(14) NOT NULL,
@@ -58,6 +58,28 @@ CREATE TABLE imagem (
   eh_padrao BOOLEAN NOT NULL,
   FOREIGN KEY (id_produto) REFERENCES produto(id_produto) ON DELETE CASCADE
 );
+
+CREATE TABLE PEDIDO (
+    id INT PRIMARY KEY,
+    data DATE,
+    cliente_id INT,
+    frete FLOAT,
+    total FLOAT,
+    endereco_id INT,
+    forma_pgto VARCHAR(255),
+    status VARCHAR(255),
+    FOREIGN KEY (cliente_id) REFERENCES CLIENTE(id),
+    FOREIGN KEY (endereco_id) REFERENCES ENDERECO(id)
+);
+
+CREATE TABLE ITENS_PEDIDO (
+    produto VARCHAR(255),
+    valor FLOAT,
+    quantidade INT,
+    pedido_id INT,
+    FOREIGN KEY (pedido_id) REFERENCES PEDIDO(id)
+);
+
 
 SELECT * FROM artgallery.funcionarios;
 SELECT * FROM artgallery.users;
