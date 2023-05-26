@@ -1,13 +1,13 @@
 create database artgallery;
 use artgallery;
-CREATE TABLE `users` (
-  `idusers` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(110) NOT NULL,
-   `cpf` varchar(14) NOT NULL, 
-  `email` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
-  `sexo` varchar(45) NOT NULL,
-  PRIMARY KEY (`idusers`)
+CREATE TABLE users (
+  idusers INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  cpf VARCHAR(14) NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  sexo VARCHAR(10) NOT NULL,
+  data_nascimento DATE NOT NULL
 );
 
 
@@ -20,8 +20,8 @@ CREATE TABLE endereco (
   bairro varchar(140) NOT NULL,
   cidade varchar(20) NOT NULL,
   uf varchar(20) NOT NULL,
-  faturamento BOOLEAN NOT NULL,
-  entrega BOOLEAN NOT NULL,
+  faturamento varchar(44) NOT NULL,
+  entrega varchar(44) NOT NULL,
   FOREIGN KEY (idusers) REFERENCES users(idusers) ON DELETE CASCADE
 );
 
@@ -33,6 +33,7 @@ CREATE TABLE `artgallery`.`funcionarios` (
   `cpf` VARCHAR(14) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   `grupo` VARCHAR(45) NOT NULL,
+  `ativo` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`idfuncionarios`));
 
   
@@ -44,7 +45,6 @@ CREATE TABLE produto (
   preco DECIMAL(10,2) NOT NULL,
   qtd_estoque INT NOT NULL,
   ativo BIT NOT NULL DEFAULT 1
-  
 );
 
 
@@ -57,7 +57,23 @@ CREATE TABLE imagem (
 );
 
 
-SELECT * FROM artgallery.users;
+CREATE TABLE pedido (
+  id_pedido INT PRIMARY KEY AUTO_INCREMENT,
+  idusers INT NOT NULL,
+  id_endereco INT NOT NULL,
+nome_pedido VARCHAR(100),
+  opcao_pagamento VARCHAR(50),
+  total  DECIMAL(10,2) NOT NULL,
+  estado VARCHAR(44),
+  FOREIGN KEY (idusers) REFERENCES users(idusers) ON DELETE CASCADE,
+  FOREIGN KEY (id_endereco) REFERENCES endereco(id)
+);
+
 SELECT * FROM artgallery.funcionarios;
+SELECT * FROM artgallery.users;
+SELECT * FROM artgallery.imagem;
 SELECT * FROM artgallery.endereco;
+SELECT * FROM artgallery.produto;
+SELECT * FROM artgallery.pedido;
 /*drop database loja;
+/*ALTER TABLE users ADD COLUMN data_nascimento DATE NOT NULL DEFAULT '1970-01-01' AFTER sexo;

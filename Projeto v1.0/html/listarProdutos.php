@@ -5,7 +5,7 @@ include('../controller/config.php');
 
 
 // Executa a consulta SQL dos produtos
-$sql = "SELECT p.id_produto, p.nome, p.avaliacao, p.preco, p.qtd_estoque,p.ativo, i.caminho FROM produto p LEFT JOIN imagem i ON p.id_produto = i.id_produto";
+$sql = "SELECT p.id_produto, p.nome, p.avaliacao, p.preco, p.qtd_estoque, p.ativo, MAX(i.caminho) AS caminho FROM produto p LEFT JOIN imagem i ON p.id_produto = i.id_produto GROUP BY p.id_produto";
 $result = $conexao->query($sql);
 
 
@@ -42,7 +42,7 @@ $result = $conexao->query($sql);
                     <th>preço</th>
                     <th>Quantidade</th>
                     <th>Status</th>
-                    <th>Imagem</th>
+                    <th>Detalhes</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,7 +58,7 @@ $result = $conexao->query($sql);
                             <td><?php echo "R$" . $row["preco"]; ?></td>
                             <td><?php echo $row["qtd_estoque"]; ?></td>
                             <td><?php echo $status; ?></td>
-                            <td class="thumbnail"><img src="<?php echo $row["caminho"]; ?>" width="100" /></td>
+                            <td><button class="edit"><a href="detalheProduto.php?id_produto=<?php echo $row["id_produto"]; ?>">ver mais..</a></button></td>
                             <td>
                                 <button class="edit"><a href="alterarProdutos.php?id=<?php echo $row["id_produto"]; ?>">Alterar</a></button>
                                 <?php if ($row['ativo'] == 1) { ?>

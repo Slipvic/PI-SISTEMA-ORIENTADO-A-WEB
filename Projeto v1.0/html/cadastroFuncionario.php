@@ -21,7 +21,7 @@ header("Location: listarUsuarios.php");
 
 <head>
   <title>Tela de Cadastro</title>
-  <link rel="stylesheet" href="../styles/style-cadastro.css" />
+  <link rel="stylesheet" href="../styles/style-cadastroCliente.css" />
   <script src="..\js\script.js"></script>
 </head>
 

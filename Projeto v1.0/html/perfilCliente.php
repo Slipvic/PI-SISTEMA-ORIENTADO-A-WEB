@@ -1,7 +1,8 @@
 <?php
-session_start();
 include('../controller/config.php');
-
+if (!isset($_SESSION)) {
+  session_start();
+}
 // Executa a consulta SQL dos usuários
 $id = $_SESSION['idusers'];
 $sql = "SELECT nome, email, cpf, sexo FROM users WHERE idusers = $id";
@@ -23,6 +24,16 @@ if(isset($_POST['salvar'])) {
     header('Location: perfilCliente.php');
     exit();
 }
+// Verificar se o botão de logoff foi pressionado
+if (isset($_POST['logoff'])) {
+  // Destruir a sessão atual
+  session_destroy();
+  
+    // Redirecionar o usuário para a página de login
+    header("Location: indexClientes.php");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -51,19 +62,15 @@ if(isset($_POST['salvar'])) {
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Baixe o App</a>
+          <a class="nav-link" href="carrinho.php">Carrinho</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Menu</a>
+          <a class="nav-link" href="meusPedidos.php">Meus Pedidos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Quadros</a>
+          <a class="nav-link" href="indexClientes.php">Quadros</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?php echo isset($_SESSION['idusers']) ? 'perfilCliente.php' : 'login-client.php'; ?>">
-            <?php echo isset($_SESSION['idusers']) ? 'Perfil' : 'Login'; ?>
-          </a>
-        </li>
+ 
         <li class="nav-item">
           <a class="nav-link" href="enderecoCliente.php">Endereços</a>
         </li>
@@ -101,6 +108,7 @@ if(isset($_POST['salvar'])) {
                         
                             <button id="editar" class="btn btn-primary" type="button">Editar</button>
                             <button id="submit" class="btn btn-primary" type="submit" name="salvar">Salvar</button>
+                            <button id="Logoff" class="btn btn-primary" type="submit" name="logoff">Fazer Log off</button>
                         </form>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ include('../controller/config.php');
 
 // Executa a consulta SQL dos usuários
 $id = $_SESSION['idusers'];
-$sql = "SELECT logradouro, numero, bairro, uf FROM endereco WHERE idusers = $id";
+$sql = "SELECT id_pedido, nome_pedido, opcao_pagamento, total, estado FROM pedido WHERE idusers = $id";
 $result = $conexao->query($sql);
 
 ?>
@@ -13,7 +13,7 @@ $result = $conexao->query($sql);
 <html>
 
 <head>
-    <title>Endereços</title>
+    <title>Meus Pedidos</title>
     <link rel="stylesheet" href="../styles/style-enderecoCliente.css" />
     <link rel="stylesheet" href="../styles/style-table.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -38,7 +38,7 @@ $result = $conexao->query($sql);
           <a class="nav-link" href="meusPedidos.php">Meus Pedidos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Quadros</a>
+          <a class="nav-link" href="indexClientes.php">Quadros</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"
@@ -49,26 +49,19 @@ $result = $conexao->query($sql);
       </ul>
     </div>
   </nav>
-    
     <header>
-        <h1>Endereços</h1>
-        <div class="actions">
-            <button class="add-user"><a href="cadastroEndereco.php">Novo Endereço</a></button>
-            <div class="search">
-                <input type="text" placeholder="Endereços Cadastrados">
-                <button class="search-button">Buscar</button>
-            </div>
-        </div>
+        <h1>Meus Pedidos</h1>
+        
     </header>
     <main>
         <table>
             <thead>
                 <tr>
-                    <th>Logradouro</th>
-                    <th>Numero</th>
-                    <th>Bairro</th>
-                    <th>UF</th>
-                    <th>Ações</th>
+                    <th>C. Pedido</th>
+                    <th>Nome do Pedido</th>
+                    <th>Opção de Pagamento</th>
+                    <th>Total</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,10 +71,11 @@ $result = $conexao->query($sql);
                     while ($row = $result->fetch_assoc()) {
                 ?>
                         <tr>
-                            <td><?php echo $row["logradouro"]; ?></td>
-                            <td><?php echo $row["numero"]; ?></td>
-                            <td><?php echo $row["bairro"]; ?></td>
-                            <td><?php echo $row["uf"]; ?></td>
+                            <td><?php echo $row["id_pedido"]; ?></td>
+                            <td><?php echo $row["nome_pedido"]; ?></td>
+                            <td><?php echo $row["opcao_pagamento"]; ?></td>
+                            <td><?php echo $row["total"]; ?></td>
+                            <td><?php echo $row["estado"]; ?></td>
                         </tr>
                 <?php
                     }

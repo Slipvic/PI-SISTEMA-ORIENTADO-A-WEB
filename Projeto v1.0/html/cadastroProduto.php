@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $preco = $_POST['preco'];
   $qtd_estoque = $_POST['qtd_estoque'];
   $imagens = $_FILES['imagens'];
-  $imagem_principal = $_POST['imagem_principal'];
+  $imagem_principal = $_FILES['imagemPrincipal'];
 
   // Insere os dados na tabela produto
   $sql_produto = "INSERT INTO produto (nome, descricao, preco, qtd_estoque) VALUES ('$nome_produto', '$descricao', '$preco', '$qtd_estoque')";
@@ -31,12 +31,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Recupera o id do produto recém inserido
   $id_produto = $conexao->insert_id;
 
-  // Insere as imagens na tabela imagem
+  // Insere a imagem principal na tabela imagem
+  $caminho_imagem = '../img/' . uniqid() . '-' . $imagem_principal['name'];
+  move_uploaded_file($imagem_principal['tmp_name'], $caminho_imagem);
+  $sql_imagem = "INSERT INTO imagem (id_produto, caminho, eh_padrao) VALUES ('$id_produto', '$caminho_imagem', '0')";
+  $conexao->query($sql_imagem);
+
+  // Insere as demais imagens na tabela imagem
   for ($i = 0; $i < count($imagens['name']); $i++) {
     $caminho_imagem = '../img/' . uniqid() . '-' . $imagens['name'][$i];
     move_uploaded_file($imagens['tmp_name'][$i], $caminho_imagem);
-    $eh_padrao = ($imagem_principal == $i + 1) ? 1 : 0;
-    $sql_imagem = "INSERT INTO imagem (id_produto, caminho, eh_padrao) VALUES ('$id_produto', '$caminho_imagem', '$eh_padrao')";
+    $sql_imagem = "INSERT INTO imagem (id_produto, caminho, eh_padrao) VALUES ('$id_produto', '$caminho_imagem', '1')";
     $conexao->query($sql_imagem);
   }
 
@@ -78,20 +83,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="number" class="form-control" name="qtd_estoque" id="qtd_estoque" required>
       </div>
       
+            
       <div class="mb-3">
-        <label for="imagens" class="form-label">Imagens:</label>
+      <label for="imagens" class="form-label">Imagem Principal:</label>
+      <input type="file" class="form-control" name="imagemPrincipal" id="imagens" multiple required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="imagens" class="form-label">Outras Imagens:</label>
         <input type="file" class="form-control" name="imagens[]" id="imagens" multiple required>
       </div>
-      
-      <div class="mb-3">
-        <label for="imagem_principal" class="form-label">Imagem Principal:</label>
-        <select class="form-select" name="imagem_principal" id="imagem_principal">
-          <?php foreach ($imagens as $key => $imagem) { ?>
-            <option value="<?php echo $key + 1; ?>"><?php echo $imagem['caminho']; ?></option>
-          <?php } ?>
-        </select>
-      </div>
-      
+
       <button type="submit" class="btn btn-primary">Cadastrar Produto</button>
       
     </form>

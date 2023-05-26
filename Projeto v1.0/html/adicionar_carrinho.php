@@ -1,10 +1,14 @@
 <?php
 session_start();
+$id_produto = $_GET['id_produto'];
+$nome = $_GET['nome'];
+$preco = $_GET['preco'];
+$quantidade = 1;
 
-$id_produto = $_POST['id_produto'];
+/* $id_produto = $_POST['id_produto'];
 $quantidade = $_POST['quantidade'];
 $nome = $_POST['nome'];
-$preco = $_POST['preco'];
+$preco = $_POST['preco']; */
 
 if (!isset($_SESSION['carrinho'])) {
     $_SESSION['carrinho'] = array();
