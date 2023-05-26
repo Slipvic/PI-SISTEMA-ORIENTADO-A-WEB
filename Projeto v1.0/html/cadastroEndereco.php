@@ -1,12 +1,11 @@
 <?php
 session_start();
 include('../controller/config.php');
- $id = $_SESSION['idusers'];
+$id = $_SESSION['idusers'];
 
-if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
-
-
+if (isset($_POST['submit'])) {
   $cep = $conexao->real_escape_string($_POST['cep']);
+  $logradouro = $conexao->real_escape_string($_POST['logradouro']);
   $numero = $conexao->real_escape_string($_POST['numero']);
   $complemento = $conexao->real_escape_string($_POST['complemento']);
   $bairro = $conexao->real_escape_string($_POST['bairro']);
@@ -15,14 +14,17 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
   $faturamento = $conexao->real_escape_string($_POST['faturamento']);
   $entrega = $conexao->real_escape_string($_POST['entrega']);
 
-  $result = "INSERT INTO endereco (idusers, logradouro, numero, complemento, bairro, cidade, uf, faturamento, entrega) 
-  VALUES ('$id', '$cep', '$numero', '$complemento', '$bairro', '$cidade', '$uf', '$faturamento', '$entrega')";
-  $conexao->query($result);
-
-  header("Location: enderecoCliente.php");
+  $result = "INSERT INTO endereco (idusers, cep, logradouro, numero, complemento, bairro, cidade, uf, faturamento, entrega) 
+  VALUES ('$id', '$cep','$logradouro','$numero', '$complemento', '$bairro', '$cidade', '$uf', '$faturamento', '$entrega')";
+  if ($conexao->query($result) === TRUE) {
+    header("Location: enderecoCliente.php");
+    exit();
+  } else {
+    echo "Erro ao inserir os dados no banco de dados: " . $conexao->error;
+  }
 }
-
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -30,9 +32,6 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
   <meta charset="UTF-8">
   <title>Cadastro de Endereço</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="..\js\script.js"></script>
-
   <style>
     label {
       font-weight: bold;
@@ -50,6 +49,11 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
       </div>
 
       <div class="form-group">
+        <label for="logradouro">Logradouro:</label>
+        <input type="text" class="form-control" id="logradouro" name="logradouro" readonly>
+      </div>
+
+      <div class="form-group">
         <label for="numero">Número:</label>
         <input type="text" class="form-control" id="numero" name="numero" required>
       </div>
@@ -61,17 +65,17 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
 
       <div class="form-group">
         <label for="bairro">Bairro:</label>
-        <input type="text" class="form-control" id="bairro" name="bairro" required>
+        <input type="text" class="form-control" id="bairro" name="bairro" readonly>
       </div>
 
       <div class="form-group">
         <label for="cidade">Cidade:</label>
-        <input type="text" class="form-control" id="cidade" name="cidade" required>
+        <input type="text" class="form-control" id="cidade" name="cidade" readonly>
       </div>
 
       <div class="form-group">
         <label for="estado">Estado:</label>
-        <input type="text" class="form-control" id="uf" name="uf" required>
+        <input type="text" class="form-control" id="uf" name="uf" readonly>
       </div>
 
       <div class="form-group">
@@ -84,14 +88,49 @@ if (isset($_POST['submit'])) { // verifique se o formulário foi submetido
         <input type="text" class="form-control" id="entrega" name="entrega" required>
       </div>
 
-      <button type="submit" class="btn btn-primary">Cadastrar</button>
+      <button type="submit" name="submit" class="btn btn-primary">Cadastrar</button>
     </form>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="meuScript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-    meuCadastroDeEndereco();
+    $(document).ready(function() {
+      $("#cep").blur(function() {
+        var cep = $(this).val();
+        if (cep.length === 9) {
+          buscarCEP(cep);
+        }
+      });
+
+      function buscarCEP(cep) {
+        axios.get("https://viacep.com.br/ws/" + cep + "/json/")
+          .then(function(response) {
+            if (response.data.erro) {
+              console.log("CEP não encontrado");
+            } else {
+              $("#logradouro").val(response.data.logradouro);
+              $("#bairro").val(response.data.bairro);
+              $("#cidade").val(response.data.localidade);
+              $("#uf").val(response.data.uf);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+
+      $(document).ready(function() {
+        $("#cep").blur(function() {
+          var cep = $(this).val().replace("-", "");
+          if (cep.length === 8) {
+            buscarCEP(cep);
+          }
+        });
+      });
+
+    });
   </script>
 </body>
 
