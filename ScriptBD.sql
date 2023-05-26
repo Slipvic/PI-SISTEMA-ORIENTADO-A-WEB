@@ -12,21 +12,23 @@ CREATE TABLE users (
 
 
 
-
-
 CREATE TABLE endereco (
   id INT PRIMARY KEY AUTO_INCREMENT,
   idusers INT NOT NULL,
-  logradouro varchar(140) NOT NULL,
+  cep VARCHAR(9) NOT NULL,
+  logradouro VARCHAR(255) NOT NULL,
   numero INT NOT NULL,
-  complemento varchar(140) NOT NULL,
-  bairro varchar(140) NOT NULL,
-  cidade varchar(20) NOT NULL,
-  uf varchar(20) NOT NULL,
-  faturamento varchar(44) NOT NULL,
-  entrega varchar(44) NOT NULL,
+  complemento VARCHAR(140) NOT NULL,
+  bairro VARCHAR(140) NOT NULL,
+  cidade VARCHAR(20) NOT NULL,
+  uf VARCHAR(20) NOT NULL,
+  faturamento VARCHAR(44) NOT NULL,
+  entrega VARCHAR(44) NOT NULL,
   FOREIGN KEY (idusers) REFERENCES users(idusers) ON DELETE CASCADE
 );
+
+
+
 
 
 CREATE TABLE `artgallery`.`funcionarios` (
