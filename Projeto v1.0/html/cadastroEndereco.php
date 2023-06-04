@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
     header("Location: enderecoCliente.php");
     exit();
   } else {
-    echo "Erro ao inserir os dados no banco de dados: " . $conexao->error;
+    echo "Erro ao inserir os dados no banco de dados: ";
   }
 }
 ?>

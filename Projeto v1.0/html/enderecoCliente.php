@@ -16,56 +16,105 @@ $result = $conexao->query($sql);
     <title>Endereços</title>
     <link rel="stylesheet" href="../styles/style-enderecoCliente.css" />
     <link rel="stylesheet" href="../styles/style-table.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
-    <header>
-        <h1>Endereços</h1>
-        <div class="actions">
-            <button class="add-user"><a href="cadastroEndereco.php">Novo Endereço</a></button>
-            <div class="search">
-                <input type="text" placeholder="Endereços Cadastrados">
-                <button class="search-button">Buscar</button>
-            </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <?php if (isset($_SESSION['nome'])) {
+                echo '<a class="navbar-brand" href="#"> Olá, ' . explode(" ", $_SESSION['nome'])[0] . '</a>';
+            } ?>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Baixe o App</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Meus Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="indexClientes.php">Quadros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="<?php echo isset($_SESSION['idusers']) ? 'perfilCliente.php' : 'login-client.php'; ?>">
+                        <?php echo isset($_SESSION['idusers']) ? 'Perfil' : 'Login'; ?>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="enderecoCliente.php">Endereços</a>
+                </li>
+            </ul>
         </div>
-    </header>
-    <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Logradouro</th>
-                    <th>Numero</th>
-                    <th>Bairro</th>
-                    <th>UF</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Itera sobre os resultados da consulta
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                ?>
-                        <tr>
-                            <td><?php echo $row["logradouro"]; ?></td>
-                            <td><?php echo $row["numero"]; ?></td>
-                            <td><?php echo $row["bairro"]; ?></td>
-                            <td><?php echo $row["uf"]; ?></td>
-                        </tr>
-                <?php
+    </nav>
+
+    <body>
+        <header>
+            <h1>Endereços</h1>
+            <div class="actions">
+                <button class="add-user"><a href="cadastroEndereco.php">Novo Endereço</a></button>
+                <div class="search">
+                    <input type="text" placeholder="Endereços Cadastrados">
+                    <button class="search-button">Buscar</button>
+                </div>
+            </div>
+        </header>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Logradouro</th>
+                        <th>Numero</th>
+                        <th>Bairro</th>
+                        <th>UF</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // Itera sobre os resultados da consulta
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $row["logradouro"]; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row["numero"]; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row["bairro"]; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row["uf"]; ?>
+                                </td>
+
+
+
+                            </tr>
+                            <?php
+                        }
+                    } else {
+                        echo "Não foram encontrados endereços.";
                     }
-                } else {
-                    echo "Não foram encontrados endereços.";
-                }
-                ?>
-            </tbody>
+                    ?>
+                </tbody>
 
-        </table>
-    </main>
-</body>
+            </table>
+        </main>
+    </body>
 
-		</table>
-		<!-- <nav>
+    </table>
+    <!-- <nav>
             <ul>
                 <li class="active"><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
@@ -73,7 +122,7 @@ $result = $conexao->query($sql);
                 Outras páginas aqui
             </ul>
         </nav> -->
-	</main>
+    </main>
 </body>
 
 </html>
