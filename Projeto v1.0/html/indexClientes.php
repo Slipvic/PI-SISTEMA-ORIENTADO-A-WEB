@@ -30,7 +30,7 @@ $result = $conexao->query($sql);
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Ecommerce de Artes</a>
+    <a class="navbar-brand" href="indexClientes.php">Ecommerce de Artes</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,10 +42,13 @@ $result = $conexao->query($sql);
           <a class="nav-link" href="carrinho.php">Carrinho</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Meus Pedidos</a>
+        <a class="nav-link"
+            href="<?php echo isset($_SESSION['idusers']) ? 'meusPedidos.php' : 'carrinho.php'; ?>">
+            <?php echo isset($_SESSION['idusers']) ? 'Meus Pedidos' : 'Meus Pedidos'; ?>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Quadros</a>
+          <a class="nav-link" href="indexClientes.php">Quadros</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"
@@ -53,7 +56,6 @@ $result = $conexao->query($sql);
             <?php echo isset($_SESSION['idusers']) ? 'Perfil' : 'Login'; ?>
           </a>
         </li>
-
       </ul>
     </div>
   </nav>
@@ -134,11 +136,12 @@ $result = $conexao->query($sql);
               <p class="card-text">Preço: R$
                 <?php echo number_format($produto['preco'], 2, ',', '.') ?>
               </p>
-              <a href="detalheProduto.php?id_produto=<?php echo $produto['id_produto']; ?>" class="btn btn-primary">Comprar</a>
+              <a href="detalheProduto.php?id_produto=<?php echo $produto['id_produto']; ?>"
+                class="btn btn-primary">Comprar</a>
 
-              <a href="adicionar_carrinho.php?id_produto=<?php echo $produto['id_produto']; 
-              ?>&nome=<?php echo $produto['nome']; ?>&preco=<?php echo $produto['preco']; 
-              ?>" class="btn btn-primary">Adicionar ao Carrinho</a>
+              <a href="adicionar_carrinho.php?id_produto=<?php echo $produto['id_produto'];
+              ?>&nome=<?php echo $produto['nome']; ?>&preco=<?php echo $produto['preco'];
+                 ?>" class="btn btn-primary">Adicionar ao Carrinho</a>
             </div>
           </div>
         </div>
@@ -148,7 +151,7 @@ $result = $conexao->query($sql);
 </body>
 
 
- <!-- <form method="POST" action="adicionar_carrinho.php">
+<!-- <form method="POST" action="adicionar_carrinho.php">
   <input type="hidden" name="id_produto" value="1">
   <input type="hidden" name="nome" value="QUADRO AMELIE">
   <input type="hidden" name="preco" value="99.99">

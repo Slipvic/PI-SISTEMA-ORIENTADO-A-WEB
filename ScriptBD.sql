@@ -11,24 +11,19 @@ CREATE TABLE users (
 );
 
 
-
 CREATE TABLE endereco (
   id INT PRIMARY KEY AUTO_INCREMENT,
   idusers INT NOT NULL,
-  cep VARCHAR(9) NOT NULL,
-  logradouro VARCHAR(255) NOT NULL,
+  logradouro varchar(140) NOT NULL,
   numero INT NOT NULL,
-  complemento VARCHAR(140) NOT NULL,
-  bairro VARCHAR(140) NOT NULL,
-  cidade VARCHAR(20) NOT NULL,
-  uf VARCHAR(20) NOT NULL,
-  faturamento VARCHAR(44) NOT NULL,
-  entrega VARCHAR(44) NOT NULL,
+  complemento varchar(140) NOT NULL,
+  bairro varchar(140) NOT NULL,
+  cidade varchar(20) NOT NULL,
+  uf varchar(20) NOT NULL,
+  faturamento varchar(44) NOT NULL,
+  entrega varchar(44) NOT NULL,
   FOREIGN KEY (idusers) REFERENCES users(idusers) ON DELETE CASCADE
 );
-
-
-
 
 
 CREATE TABLE `artgallery`.`funcionarios` (
@@ -61,33 +56,24 @@ CREATE TABLE imagem (
   FOREIGN KEY (id_produto) REFERENCES produto(id_produto) ON DELETE CASCADE
 );
 
-CREATE TABLE PEDIDO (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    data DATE NOT NULL,
-    cliente_id INT NOT NULL,
-    frete  DECIMAL(10,2) NOT NULL,
-    total  DECIMAL(10,2) NOT NULL,
-    endereco_id INT NOT NULL,
-    forma_pgto VARCHAR(255) NOT NULL,
-    status VARCHAR(255),
-    FOREIGN KEY (cliente_id) REFERENCES CLIENTE(id),
-    FOREIGN KEY (endereco_id) REFERENCES ENDERECO(id)
-);
 
-CREATE TABLE ITENS_PEDIDO (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    produto VARCHAR(255) NOT NULL,
-    valor DECIMAL(10,2) NOT NULL,
-    quantidade INT NOT NULL,
-    pedido_id INT NOT NULL,
-    FOREIGN KEY (pedido_id) REFERENCES PEDIDO(id)
+CREATE TABLE pedido (
+  id_pedido INT PRIMARY KEY AUTO_INCREMENT,
+  idusers INT NOT NULL,
+  id_endereco INT NOT NULL,
+nome_pedido VARCHAR(100),
+  opcao_pagamento VARCHAR(50),
+  total  DECIMAL(10,2) NOT NULL,
+  estado VARCHAR(44),
+  FOREIGN KEY (idusers) REFERENCES users(idusers) ON DELETE CASCADE,
+  FOREIGN KEY (id_endereco) REFERENCES endereco(id)
 );
-
 
 SELECT * FROM artgallery.funcionarios;
 SELECT * FROM artgallery.users;
 SELECT * FROM artgallery.imagem;
 SELECT * FROM artgallery.endereco;
 SELECT * FROM artgallery.produto;
+SELECT * FROM artgallery.pedido;
 /*drop database loja;
 /*ALTER TABLE users ADD COLUMN data_nascimento DATE NOT NULL DEFAULT '1970-01-01' AFTER sexo;

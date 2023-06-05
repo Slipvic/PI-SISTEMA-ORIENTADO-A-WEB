@@ -1,7 +1,8 @@
 <?php
-session_start();
 include('../controller/config.php');
-
+if (!isset($_SESSION)) {
+  session_start();
+}
 // Executa a consulta SQL dos usuários
 $id = $_SESSION['idusers'];
 $sql = "SELECT nome, email, cpf, sexo FROM users WHERE idusers = $id";
@@ -61,19 +62,15 @@ if (isset($_POST['logoff'])) {
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Baixe o App</a>
+          <a class="nav-link" href="carrinho.php">Carrinho</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Meus Pedidos</a>
+          <a class="nav-link" href="meusPedidos.php">Meus Pedidos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="indexClientes.php">Quadros</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?php echo isset($_SESSION['idusers']) ? 'perfilCliente.php' : 'login-client.php'; ?>">
-            <?php echo isset($_SESSION['idusers']) ? 'Perfil' : 'Login'; ?>
-          </a>
-        </li>
+ 
         <li class="nav-item">
           <a class="nav-link" href="enderecoCliente.php">Endereços</a>
         </li>

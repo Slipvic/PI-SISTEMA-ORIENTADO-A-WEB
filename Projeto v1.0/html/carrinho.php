@@ -1,3 +1,8 @@
+<?php 
+include('../controller/config.php');
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -9,6 +14,39 @@
 </head>
 
 <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="indexClientes.php">Ecommerce de Artes</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="carrinho.php">Carrinho</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link"
+            href="<?php echo isset($_SESSION['idusers']) ? 'meusPedidos.php' : 'carrinho.php'; ?>">
+            <?php echo isset($_SESSION['idusers']) ? 'Meus Pedidos' : 'Meus Pedidos'; ?>
+        </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Quadros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+            href="<?php echo isset($_SESSION['idusers']) ? 'perfilCliente.php' : 'login-client.php'; ?>">
+            <?php echo isset($_SESSION['idusers']) ? 'Perfil' : 'Login'; ?>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container mt-5">
     <h1>Carrinho</h1>
 
@@ -22,7 +60,7 @@
     </form>
 
     <?php
-    session_start();
+  
 
     // Função para obter as informações do CEP usando uma API
     function obterInformacoesCEP($cep)
@@ -152,29 +190,54 @@
       header('Location: carrinho.php');
       exit;
     }
+  // Verifica se foi selecionado o frete
+  if (isset($_POST['frete1'])) {
+    $frete = "DHL";
+    $valor_frete = 10;
+  } elseif (isset($_POST['frete2'])) {
+    $frete = "JadLog";
+    $valor_frete = 20;
+  } elseif (isset($_POST['frete3'])) {
+    $frete = "Loggi";
+    $valor_frete = 30;
+  } else {
+    $frete = "Nenhum frete selecionado";
+    $valor_frete = 0;
+  }
 
-    // Verifica se foi selecionado o frete
-    if (isset($_POST['frete1'])) {
-      $frete = "DHL";
-      $valor_frete = 10;
-    } elseif (isset($_POST['frete2'])) {
-      $frete = "JadLog";
-      $valor_frete = 20;
-    } elseif (isset($_POST['frete3'])) {
-      $frete = "Loggi";
-      $valor_frete = 30;
-    } else {
-      $frete = "Nenhum frete selecionado";
-      $valor_frete = 0;
-    }
+  // Calcula o total do carrinho com o valor do frete
+  $total_carrinho += $valor_frete;
 
-    // Calcula o total do carrinho com o valor do frete
-    $total_carrinho += $valor_frete;
+  echo "<p>Opção de frete selecionada: $frete</p>";
+  echo "<h3>Total do carrinho (com frete): R$ $total_carrinho</h3>";
 
-    echo "<p>Opção de frete selecionada: $frete</p>";
-    echo "<h3>Total do carrinho (com frete): R$ $total_carrinho</h3>";
+  // Cria um array para armazenar os detalhes de cada item do carrinho
+  $detalhes_carrinho = array();
 
-    ?>
+  // Itera sobre os produtos no carrinho
+  foreach ($_SESSION['carrinho'] as $id_produto => $produto) {
+  // Adiciona os detalhes de cada item ao array $detalhes_carrinho
+  $detalhes_item = array(
+    'nome_produto' => $produto['nome'],
+    'valor_sem_frete' => $produto['preco'],
+    'frete' => $frete,
+    'quantidade' => $produto['quantidade'] // Adiciona a quantidade selecionada do item
+  );
+  $detalhes_carrinho[] = $detalhes_item;
+  }
+
+// Adiciona o array $detalhes_carrinho à sessão
+$_SESSION['detalhes_carrinho'] = array(
+  'total_carrinho' => $total_carrinho,
+  'itens_carrinho' => $detalhes_carrinho
+);
+
+
+?>
+      <button class="btn btn-primary mr-2"
+      onclick="location.href='<?php echo isset($_SESSION['idusers']) ? 'formaPagamento.php' : 'login-client.php'; ?>'">
+      <?php echo isset($_SESSION['idusers']) ? 'Finalizar Compra' : 'Login'; ?>
+    </button>
   </div>
 </body>
 
