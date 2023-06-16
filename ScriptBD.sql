@@ -28,6 +28,19 @@ CREATE TABLE endereco (
   FOREIGN KEY (idusers) REFERENCES users(idusers) ON DELETE CASCADE
 );
 
+-- Inserção de um cliente e endereço de exemplo
+INSERT INTO users (nome, email, cpf, senha, sexo, data_nascimento)
+VALUES ('João Silva', 'joao.silva@example.com', '12345678900', 'senha123', 'Masculino', '2000-01-01');
+
+ 
+
+SET @idCliente = LAST_INSERT_ID();
+
+ 
+
+INSERT INTO endereco (idusers, logradouro, numero, complemento, bairro, cidade, uf, cep, faturamento, entrega)
+VALUES (@idCliente, 'Rua Exemplo', 123, 'Apto 456', 'Centro', 'Cidade Exemplo', 'UF', '12345-678', 'Endereço de Faturamento', 'Endereço de Entrega');
+
 
 CREATE TABLE `artgallery`.`funcionarios` (
   `idfuncionarios` INT NOT NULL AUTO_INCREMENT,
@@ -39,6 +52,8 @@ CREATE TABLE `artgallery`.`funcionarios` (
   `ativo` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`idfuncionarios`));
 
+INSERT INTO funcionarios (nome, email, cpf, senha, grupo, ativo) 
+VALUES ('Administrador', 'adm@gmail.com', '12345678900', 'e10adc3949ba59abbe56e057f20f883e', 'Administrador', 1);
   
 CREATE TABLE produto (
   id_produto INT PRIMARY KEY AUTO_INCREMENT,
@@ -50,6 +65,16 @@ CREATE TABLE produto (
   ativo BIT NOT NULL DEFAULT 1
 );
 
+INSERT INTO produto (nome, avaliacao, descricao, preco, qtd_estoque, ativo)
+VALUES
+  ('Quadro Futurista', 4.5, 'Descrição do Quadro Futurista', 149.99, 10, 1),
+  ('Quadro Color', 4.2, 'Descrição do Quadro Color', 129.99, 8, 1),
+  ('Quadros Deus', 4.8, 'Descrição dos Quadros Deus', 179.99, 5, 1),
+  ('Quadros Star Wars', 4.6, 'Descrição dos Quadros Star Wars', 199.99, 12, 1),
+  ('Quadro Noite Estrelada', 4.4, 'Descrição do Quadro Noite Estrelada', 249.99, 3, 1),
+  ('Quadro Amelie', 4.1, 'Descrição do Quadro Amelie', 159.99, 6, 1),
+  ('Quadro Paisagem', 4.3, 'Descrição do Quadro Paisagem', 189.99, 9, 1),
+  ('Quadro Abstrato', 4.7, 'Descrição do Quadro Abstrato', 169.99, 7, 1);
 
 CREATE TABLE imagem (
   id_imagem INT PRIMARY KEY AUTO_INCREMENT,
@@ -60,6 +85,18 @@ CREATE TABLE imagem (
 );
 
 
+INSERT INTO imagem (id_produto, caminho, eh_padrao)
+VALUES
+  (1, '../img/6432185011e9a-cambg_2 (Grande).jpg', TRUE),
+  (2, '../img/644968e9b176e-girl-2696947_1280 (Grande).jpg', TRUE),
+  (3, '../img/645571ed58b69-deus.jpg', TRUE),
+  (4, '../img/645571ed594ba-kit3 (Grande).jpg', TRUE),
+  (5, '../img/645bd240ebd04-art1 (Grande).jpg', TRUE),
+  (6, '../img/645bd955cb964-amelie (Grande).jpg', TRUE),
+  (7, '../img/645bdacf53f0c-art2 (Grande).jpg', TRUE),
+  (8, '../img/645bdb65535b3-art3 (Grande).jpg', TRUE);
+  
+  
 CREATE TABLE pedido (
   id_pedido INT PRIMARY KEY AUTO_INCREMENT,
   idusers INT NOT NULL,
