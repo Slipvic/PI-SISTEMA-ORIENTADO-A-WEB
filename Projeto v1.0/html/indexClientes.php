@@ -9,7 +9,7 @@ if (!isset($_SESSION)) {
 $sql = "SELECT p.id_produto, p.nome, p.avaliacao, p.preco, MAX(i.caminho) AS caminho
 FROM produto p
 LEFT JOIN imagem i ON p.id_produto = i.id_produto
-WHERE i.eh_padrao = 0
+WHERE i.eh_padrao = 1
 GROUP BY p.id_produto";
 $result = $conexao->query($sql);
 
