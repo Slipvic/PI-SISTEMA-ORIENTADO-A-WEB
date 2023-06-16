@@ -25,6 +25,8 @@ $result = $conexao->query($sql);
   <link rel="stylesheet" href="../styles/landingpage.css" />
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -42,8 +44,7 @@ $result = $conexao->query($sql);
           <a class="nav-link" href="carrinho.php">Carrinho</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link"
-            href="<?php echo isset($_SESSION['idusers']) ? 'meusPedidos.php' : 'carrinho.php'; ?>">
+          <a class="nav-link" href="<?php echo isset($_SESSION['idusers']) ? 'meusPedidos.php' : 'carrinho.php'; ?>">
             <?php echo isset($_SESSION['idusers']) ? 'Meus Pedidos' : 'Meus Pedidos'; ?>
           </a>
         </li>
@@ -60,33 +61,7 @@ $result = $conexao->query($sql);
     </div>
   </nav>
 
-  <!-- Carrossel -->
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="../img/arte.jpg" alt="Primeiro Slide" />
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="https://picsum.photos/id/238/1280/500" alt="Segundo Slide" />
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="https://picsum.photos/id/239/1280/500" alt="Terceiro Slide" />
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Anterior</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Próximo</span>
-    </a>
-  </div>
+
 
   <!-- Conteúdo principal -->
   <main class="container my-5">
@@ -104,12 +79,14 @@ $result = $conexao->query($sql);
           <img src="../img/arte.jpg" class="d-block w-100" alt="Arte 1" />
         </div>
         <div class="carousel-item">
-          <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Arte 2" />
+          <img src="../img/art3.jpg" class="d-block w-100" alt="Arte 2" />
         </div>
         <div class="carousel-item">
-          <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Arte 3" />
+          <img src="../img/arte2.jpg" class="d-block w-100" alt="Arte 3" />
         </div>
       </div>
+
+      <!-- Botões de navegação -->
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Anterior</span>
@@ -120,17 +97,18 @@ $result = $conexao->query($sql);
       </a>
     </div>
 
+
     <!-- Grid de produtos -->
-    <div class="row">
+    <div class="row product-grid">
       <?php while ($produto = $result->fetch_assoc()): ?>
-        <div class="col-md-4 mb-3">
+        <div class="col-4 product-card h-100">
           <div class="card">
             <img class="card-img-top" src="<?php echo $produto['caminho'] ?>" alt="<?php echo $produto['nome'] ?>">
             <div class="card-body">
               <h5 class="card-title">
                 <?php echo $produto['nome'] ?>
               </h5>
-              <p class="card-text">Avaliação:
+              <p class="card-text">Avaliação: &#x2605
                 <?php echo $produto['avaliacao'] ?>
               </p>
               <p class="card-text">Preço: R$

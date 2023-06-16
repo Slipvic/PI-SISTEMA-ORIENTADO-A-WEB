@@ -11,6 +11,21 @@ include('../controller/config.php');
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .produto-item {
+      background-color: #1E90FF;
+      padding: 10px;
+      border: 1px solid black;
+      color: white;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    .total-carrinho {
+      font-weight: bold;
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
@@ -117,6 +132,7 @@ include('../controller/config.php');
       echo '<button type="submit" name="frete3" value="frete3" class="btn btn-primary">Loggi</button>';
       echo '</form>';
     }
+    $total_carrinho = 0;
     // Verifica se o carrinho está vazio
     if (empty($_SESSION['carrinho'])) {
       echo "<p>O carrinho está vazio.</p>";
@@ -129,7 +145,8 @@ include('../controller/config.php');
         $total_carrinho += $total_item;
 
         // Exibe as informações do produto e o total do item
-        echo "<p>" . $produto['nome'] . " - R$ " . $produto['preco'] . " - Quantidade: " . $produto['quantidade'] . " - Total: R$ " . $total_item . "</p>";
+        echo '<p class="produto-item">' . $produto['nome'] . ' - R$ ' . $produto['preco'] . ' - Quantidade: ' . $produto['quantidade'] . ' - Total: R$ ' . $total_item . '</p>';
+
 
         // Adiciona botões para diminuir e aumentar a quantidade e remover o produto do carrinho
         echo '<form method="post">';
@@ -148,7 +165,7 @@ include('../controller/config.php');
     }
     ?>
 
-    <p><a href="indexClientes.php">Voltar para a página inicial</a></p>
+    <p><a href="indexClientes.php">Adicionar Mais Produtos</a></p>
 
     <?php
     // Verifica se foi clicado o botão para diminuir a quantidade de um produto

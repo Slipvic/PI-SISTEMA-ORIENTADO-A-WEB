@@ -43,7 +43,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
 <html>
 <head>
   <title>Tela de Login</title>
-  <link rel="stylesheet" href="../styles/style-loginCliente.css" />
+  <link rel="stylesheet" href="../styles/loginClienteNovoteste.css" />
 </head>
 <body>
   <form action="" method="POST">
@@ -55,7 +55,6 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
 
     <button type="submit" onclick="logar()">Entrar</button>
     <div class="signup">Não tem uma conta? <a href="cadastroUser.php">Cadastre-se</a></div>
-    <div class="signup">Faz parte do quadro funcionarios? <a href="login-backoffice.php">clique aqui</a></div>
     <br>
     <div class="forgot"><a href="#">Esqueceu a senha?</a></div>
   </form>

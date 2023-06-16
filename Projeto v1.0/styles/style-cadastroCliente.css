@@ -27,7 +27,7 @@ body {
     border: 1px solid #cccccc;
   }
   input[type="submit"] {
-    background-color: #3e8e41;
+    background-color: 1E90FF;
     color: #ffffff;
     padding: 10px;
     border-radius: 5px;
@@ -35,7 +35,7 @@ body {
     cursor: pointer;
   }
   button [type="submit"] {
-    background-color: #3e8e41;
+    background-color: 1E90FF;
     color: #ffffff;
     padding: 10px;
     border-radius: 5px;

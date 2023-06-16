@@ -103,3 +103,38 @@ function meuCadastroDeEndereco() {
     return false;
   });
 }
+
+function validarCPF() {
+  var cpf = document.getElementById("CPF").value;
+  cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+
+  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
+    // Verifica se o CPF tem 11 dígitos e se não é uma sequência repetida
+    document.getElementById("resultado").innerHTML = "CPF inválido.";
+  } else {
+    // Calcula os dígitos verificadores do CPF
+    var soma = 0;
+    for (var i = 0; i < 9; i++) {
+      soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+    var resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+
+    if (resto !== parseInt(cpf.charAt(9))) {
+      document.getElementById("resultado").innerHTML = "CPF inválido.";
+    } else {
+      soma = 0;
+      for (var i = 0; i < 10; i++) {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+      }
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+
+      if (resto !== parseInt(cpf.charAt(10))) {
+        document.getElementById("resultado").innerHTML = "CPF inválido.";
+      } else {
+        document.getElementById("resultado").innerHTML = "CPF válido.";
+      }
+    }
+  }
+}
