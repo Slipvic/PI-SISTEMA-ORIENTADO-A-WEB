@@ -1,0 +1,29 @@
+.produto-item {
+    background-color: #1E90FF;
+    padding: 10px;
+    border: 1px solid black;
+    color: white;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .total-carrinho {
+    font-weight: bold;
+    color: red;
+  }
+
+  .navbar {
+    background-color: #7c4dff;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .nav-link {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+  }

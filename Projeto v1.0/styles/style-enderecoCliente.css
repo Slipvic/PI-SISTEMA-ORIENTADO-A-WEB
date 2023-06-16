@@ -19,18 +19,19 @@ h1 {
 	align-items: center;
 }
 .add-user {
-	background-color: #4ec4be;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	font-size: 16px;
-	cursor: pointer;
-	margin-right: 20px;
-	transition: background-color 0.3s ease;
+    background-color: #1E90FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 20px;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Adicione esta linha para remover a sublinhado padrão do link */
 }
 .add-user:hover {
-	background-color: #4ec4be;
+	background-color: white;
 }
 .search {
 	display: flex;
@@ -42,7 +43,7 @@ h1 {
 	border-radius: 5px
 }
 * button {
-	background-color: #4ec4be;
+	background-color: #1E90FF;
 	color: #fff;
 	border: none;
 	border-radius: 5px;
@@ -53,8 +54,19 @@ h1 {
 	transition: background-color 0.3s ease;
 }
 
-* button:hover {
-	background-color: #4ec4be;
 
-}
+  .navbar {
+    background-color: #7c4dff;
+    color: #fff;
+    font-weight: bold;
+  }
 
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .nav-link {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+  }
